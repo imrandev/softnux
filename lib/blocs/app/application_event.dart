@@ -1,8 +1,16 @@
 part of 'application_bloc.dart';
 
 @immutable
-abstract class ApplicationEvent {}
+abstract class ApplicationEvent {
 
-class WelcomeEvent extends ApplicationEvent {
+}
 
+class CurrentUserEvent extends ApplicationEvent {
+
+}
+
+class BottomNavEvent extends ApplicationEvent {
+  final int index;
+  BottomNavEvent(this.index);
+  List<Object> get props => [index];
 }

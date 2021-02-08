@@ -5,7 +5,6 @@ import 'package:softnux/utills/prefs_util.dart';
 import 'package:softnux/utills/routepath.dart';
 
 class LoginForm extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() => LoginFormUIState();
 }
@@ -15,6 +14,8 @@ class LoginFormUIState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _usernameFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,14 @@ class LoginFormUIState extends State<LoginForm> {
               }
               return null;
             },
+            onChanged: (value) {
+              if (value.isNotEmpty) {
+                _formKey.currentState.validate();
+              } else {
+                FocusScope.of(context).requestFocus(_usernameFocusNode);
+              }
+            },
+            focusNode: _usernameFocusNode,
             maxLines: 1,
             controller: _usernameController,
             decoration: InputDecoration(
@@ -41,14 +50,13 @@ class LoginFormUIState extends State<LoginForm> {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(32.0),
                 borderSide:
-                const BorderSide(color: Color(0xffCCCCCC), width: 20.0),
+                    const BorderSide(color: Color(0xffCCCCCC), width: 20.0),
               ),
             ),
           ),
           SizedBox(
             height: 5,
           ),
-
           BlocBuilder<LoginFormBloc, LoginFormState>(
             builder: (context, state) {
               bool visibility = false;
@@ -64,6 +72,14 @@ class LoginFormUIState extends State<LoginForm> {
                   }
                   return null;
                 },
+                onChanged: (value) {
+                  if (value.isNotEmpty || value.length > 8) {
+                    _formKey.currentState.validate();
+                  } else {
+                    FocusScope.of(context).requestFocus(_passwordFocusNode);
+                  }
+                },
+                focusNode: _passwordFocusNode,
                 controller: _passwordController,
                 maxLines: 1,
                 obscureText: visibility ? false : true,
@@ -77,13 +93,12 @@ class LoginFormUIState extends State<LoginForm> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0),
                     borderSide:
-                    const BorderSide(color: Color(0xffCCCCCC), width: 20.0),
+                        const BorderSide(color: Color(0xffCCCCCC), width: 20.0),
                   ),
                   suffixIcon: InkWell(
-                    onTap: () =>
-                    {
-                      BlocProvider.of<LoginFormBloc>(context).add(
-                          PasswordVisibilityEvent(!visibility, ""))
+                    onTap: () => {
+                      BlocProvider.of<LoginFormBloc>(context)
+                          .add(PasswordVisibilityEvent(!visibility, ""))
                     },
                     customBorder: CircleBorder(),
                     child: Icon(
@@ -103,12 +118,13 @@ class LoginFormUIState extends State<LoginForm> {
             height: 50,
             child: RaisedButton(
               onPressed: () => {
-                if (_formKey.currentState.validate()){
-                  PrefsUtil().saveUsername(_usernameController.text),
-                  PrefsUtil().savePassword(_passwordController.text),
-                  PrefsUtil().saveSession(true),
-                  Navigator.popAndPushNamed(context, RoutePath.home),
-                }
+                if (_formKey.currentState.validate())
+                  {
+                    PrefsUtil().saveUsername(_usernameController.text),
+                    PrefsUtil().savePassword(_passwordController.text),
+                    PrefsUtil().saveSession(true),
+                    Navigator.popAndPushNamed(context, RoutePath.home),
+                  }
               },
               elevation: 4,
               color: Color(0xffE7014C),
@@ -129,5 +145,14 @@ class LoginFormUIState extends State<LoginForm> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _passwordFocusNode.dispose();
+    _usernameFocusNode.dispose();
+    super.dispose();
   }
 }

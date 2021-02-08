@@ -7,12 +7,30 @@ abstract class ApplicationState {
 
 class ApplicationInitial extends ApplicationState {}
 
-class UsernameState extends ApplicationState {
+class CurrentUserState extends ApplicationState {
   final String username;
 
-  UsernameState(this.username);
+  CurrentUserState(this.username);
 
   List<Object> get props => [username];
 }
 
-class NoUsernameState extends ApplicationState {}
+class NoUsernameState extends ApplicationState {
+
+}
+
+class HomeBottomNavState extends ApplicationState {
+
+}
+
+class HotJobsBottomNavState extends ApplicationState {
+
+}
+
+class ShortListedBottomNavState extends ApplicationState {
+
+}
+
+class MoreBottomNavState extends ApplicationState {
+
+}
