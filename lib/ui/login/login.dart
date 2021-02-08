@@ -2,31 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softnux/blocs/form/login_form_bloc.dart';
+import 'package:softnux/utills/media_query_util.dart';
 
 import 'login_card.dart';
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final itemWidth = MediaQueryUtil().getItemWidth(context, 1);
+
     return BlocProvider(
       create: (context) => LoginFormBloc(),
       child: Scaffold(
         appBar: AppBar(
           elevation: 0,
-          leading: InkWell(
-            onTap: () => {},
-            customBorder: CircleBorder(),
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-          ),
-          title: Text(
-            "Login",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+          title: Container(
+            width: itemWidth,
+            alignment: Alignment.center,
+            child: Text(
+              "Login",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

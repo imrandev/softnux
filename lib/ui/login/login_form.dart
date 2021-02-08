@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softnux/blocs/form/login_form_bloc.dart';
+import 'package:softnux/utills/prefs_util.dart';
 import 'package:softnux/utills/routepath.dart';
 
 class LoginForm extends StatefulWidget {
@@ -12,6 +13,8 @@ class LoginForm extends StatefulWidget {
 class LoginFormUIState extends State<LoginForm> {
 
   final _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +27,10 @@ class LoginFormUIState extends State<LoginForm> {
               if (value.isEmpty) {
                 return "Please enter your username or email";
               }
-              return "";
+              return null;
             },
             maxLines: 1,
+            controller: _usernameController,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.person,
@@ -46,7 +50,6 @@ class LoginFormUIState extends State<LoginForm> {
           ),
 
           BlocBuilder<LoginFormBloc, LoginFormState>(
-
             builder: (context, state) {
               bool visibility = false;
               if (state is PasswordVisibilityState) {
@@ -56,9 +59,12 @@ class LoginFormUIState extends State<LoginForm> {
                 validator: (value) {
                   if (value.isEmpty) {
                     return "Please enter your password";
+                  } else if (value.length < 8) {
+                    return "Password is too short! Need 8 characters.";
                   }
-                  return "";
+                  return null;
                 },
+                controller: _passwordController,
                 maxLines: 1,
                 obscureText: visibility ? false : true,
                 decoration: InputDecoration(
@@ -97,7 +103,13 @@ class LoginFormUIState extends State<LoginForm> {
             height: 50,
             child: RaisedButton(
               onPressed: () => {
-                Navigator.pushNamed(context, RoutePath.home),
+                if (_formKey.currentState.validate()){
+                  PrefsUtil().saveUsername(_usernameController.text),
+                  PrefsUtil().savePassword(_passwordController.text),
+                  PrefsUtil().saveSession(true),
+
+                  Navigator.pushNamed(context, RoutePath.home),
+                }
               },
               elevation: 4,
               color: Color(0xffE7014C),

@@ -2,13 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:softnux/ui/widgets/circle_image_view.dart';
 import 'package:softnux/utills/constant.dart';
 import 'package:softnux/utills/media_query_util.dart';
+import 'package:softnux/utills/prefs_util.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => HomeState();
+}
+
+class HomeState extends State<Home> {
+
+  String username;
+
   @override
   Widget build(BuildContext context) {
     final itemWidth = MediaQueryUtil().getItemWidth(context, 1);
 
+    setState(() {
+      PrefsUtil().getUsername().then((value) => {
+        username = value
+      });
+    });
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(
+          "$username",
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Color(0xffE7014C),
+        unselectedItemColor: Color(0xffC4B9AF),
+        showUnselectedLabels: true,
+        currentIndex: 0, // this will be set when a new tab is tapped
+        items: [
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.whatshot),
+            label: "Hot Jobs",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            label: "Storelisted",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.more_horiz),
+            label: "More",
+          ),
+        ],
+      ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -42,10 +87,10 @@ class Home extends StatelessWidget {
                     ),
                     Text(
                       "It builds on a tradition of using mall spaces for live music "
-                      "and other kinds of public gatherings -- some organized "
-                      "by malls themselves, but others more spontaneous."
-                      "\n\nSimilar scenes are replicated along subway lines "
-                      "throughout Hong Kong.",
+                          "and other kinds of public gatherings -- some organized "
+                          "by malls themselves, but others more spontaneous."
+                          "\n\nSimilar scenes are replicated along subway lines "
+                          "throughout Hong Kong.",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -183,7 +228,7 @@ class Home extends StatelessWidget {
                                       flex: 1,
                                       child: Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                        CrossAxisAlignment.end,
                                         children: [
                                           Text(
                                             "5",
@@ -221,7 +266,7 @@ class Home extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     InkWell(
                                       onTap: () => {},
