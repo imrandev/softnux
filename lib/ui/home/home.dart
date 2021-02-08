@@ -1,35 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/ui/widgets/circle_image_view.dart';
 import 'package:softnux/utills/constant.dart';
 import 'package:softnux/utills/media_query_util.dart';
 import 'package:softnux/utills/prefs_util.dart';
+import 'package:softnux/utills/routepath.dart';
 
-class Home extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => HomeState();
-}
-
-class HomeState extends State<Home> {
-
-  String username;
+class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     final itemWidth = MediaQueryUtil().getItemWidth(context, 1);
 
-    setState(() {
-      PrefsUtil().getUsername().then((value) => {
-        username = value
-      });
-    });
+    BlocProvider.of<ApplicationBloc>(context).add(WelcomeEvent());
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(
-          "$username",
+        leading: Icon(
+          Icons.account_circle,
+          color: Colors.white,
+          size: 30,
         ),
+        title: BlocBuilder<ApplicationBloc, ApplicationState> (
+          builder: (context, state) {
+            if (state is UsernameState) {
+              return Text(
+                "Welcome ${state.username}",
+              );
+            } else {
+              return Text(
+                "Welcome Home",
+              );
+            }
+          },
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () => {
+                    PrefsUtil().saveSession(false),
+                    Navigator.popAndPushNamed(context, RoutePath.login),
+                  },
+                  customBorder: CircleBorder(),
+                  child: Icon(
+                    Icons.logout,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
+
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Color(0xffE7014C),
         unselectedItemColor: Color(0xffC4B9AF),
