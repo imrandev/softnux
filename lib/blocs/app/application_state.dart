@@ -34,3 +34,11 @@ class ShortListedBottomNavState extends ApplicationState {
 class MoreBottomNavState extends ApplicationState {
 
 }
+
+class SubmitFormState extends ApplicationState {
+  final bool visibility;
+
+  SubmitFormState(this.visibility);
+
+  List<Object> get props => [visibility];
+}

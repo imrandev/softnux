@@ -14,3 +14,11 @@ class BottomNavEvent extends ApplicationEvent {
   BottomNavEvent(this.index);
   List<Object> get props => [index];
 }
+
+class SubmitFormEvent extends ApplicationEvent {
+  final bool visibility;
+
+  SubmitFormEvent(this.visibility);
+
+  List<Object> get props => [visibility];
+}

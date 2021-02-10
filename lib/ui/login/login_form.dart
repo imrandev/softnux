@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/form/login_form_bloc.dart';
 import 'package:softnux/utills/prefs_util.dart';
 import 'package:softnux/utills/routepath.dart';
@@ -12,10 +13,11 @@ class LoginForm extends StatefulWidget {
 class LoginFormUIState extends State<LoginForm> {
 
   final _formKey = GlobalKey<FormState>();
+  final _usernameKey = GlobalKey<FormState>();
+  final _passwordKey = GlobalKey<FormState>();
+
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _usernameFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +32,15 @@ class LoginFormUIState extends State<LoginForm> {
               }
               return null;
             },
+            key: _usernameKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             onChanged: (value) {
               if (value.isNotEmpty) {
-                _formKey.currentState.validate();
-              } else {
-                FocusScope.of(context).requestFocus(_usernameFocusNode);
+                setState(() {
+                  _usernameKey.currentState.validate();
+                });
               }
             },
-            focusNode: _usernameFocusNode,
             maxLines: 1,
             controller: _usernameController,
             decoration: InputDecoration(
@@ -64,6 +67,7 @@ class LoginFormUIState extends State<LoginForm> {
                 visibility = state.visibility;
               }
               return TextFormField(
+                key: _passwordKey,
                 validator: (value) {
                   if (value.isEmpty) {
                     return "Please enter your password";
@@ -74,12 +78,12 @@ class LoginFormUIState extends State<LoginForm> {
                 },
                 onChanged: (value) {
                   if (value.isNotEmpty || value.length > 8) {
-                    _formKey.currentState.validate();
-                  } else {
-                    FocusScope.of(context).requestFocus(_passwordFocusNode);
+                    setState(() {
+                      _passwordKey.currentState.validate();
+                    });
                   }
                 },
-                focusNode: _passwordFocusNode,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 controller: _passwordController,
                 maxLines: 1,
                 obscureText: visibility ? false : true,
@@ -120,6 +124,7 @@ class LoginFormUIState extends State<LoginForm> {
               onPressed: () => {
                 if (_formKey.currentState.validate())
                   {
+                    BlocProvider.of<ApplicationBloc>(context).add(SubmitFormEvent(true)),
                     PrefsUtil().saveUsername(_usernameController.text),
                     PrefsUtil().savePassword(_passwordController.text),
                     PrefsUtil().saveSession(true),
@@ -151,8 +156,6 @@ class LoginFormUIState extends State<LoginForm> {
   void dispose() {
     _usernameController.dispose();
     _passwordController.dispose();
-    _passwordFocusNode.dispose();
-    _usernameFocusNode.dispose();
     super.dispose();
   }
 }

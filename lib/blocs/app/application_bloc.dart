@@ -38,6 +38,8 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
             yield HomeBottomNavState();
             break;
         }
+      } else if (event is SubmitFormEvent) {
+        yield SubmitFormState(event.visibility);
       }
     } on Error {
 

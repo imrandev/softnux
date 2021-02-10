@@ -19,6 +19,12 @@ class HomeState extends State<Home> {
   String _username;
 
   @override
+  void initState() {
+    BlocProvider.of<ApplicationBloc>(context).add(CurrentUserEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return Scaffold(
@@ -30,9 +36,7 @@ class HomeState extends State<Home> {
         ),
         title: BlocBuilder<ApplicationBloc, ApplicationState>(
           builder: (context, state) {
-            if (state is ApplicationInitial) {
-              BlocProvider.of<ApplicationBloc>(context).add(CurrentUserEvent());
-            }
+
             if (state is CurrentUserState) {
               this._username = state.username;
               return Text(

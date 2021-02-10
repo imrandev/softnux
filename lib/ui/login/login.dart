@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/form/login_form_bloc.dart';
+import 'package:softnux/ui/widgets/horizontal_loader_view.dart';
 import 'package:softnux/utills/media_query_util.dart';
 
 import 'login_card.dart';
 
 class Login extends StatelessWidget {
+
+  final GlobalKey _scaffoldKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     final itemWidth = MediaQueryUtil().getItemWidth(context, 1);
+    BlocProvider.of<ApplicationBloc>(context).add(SubmitFormEvent(false));
+
     return BlocProvider(
       create: (context) => LoginFormBloc(),
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           elevation: 0,
           title: Container(
@@ -41,6 +49,15 @@ class Login extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisSize: MainAxisSize.min,
                       children: [
+
+                        BlocBuilder<ApplicationBloc, ApplicationState>(builder: (context, state) {
+                          bool visibility = false;
+                          if (state is SubmitFormState) {
+                            visibility = state.visibility;
+                          }
+                          return HorizontalLoaderView(visibility);
+                        }),
+
                         SizedBox(
                           height: 150,
                           child: Icon(
@@ -63,4 +80,6 @@ class Login extends StatelessWidget {
       ),
     );
   }
+
+
 }

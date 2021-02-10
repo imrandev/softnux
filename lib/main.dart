@@ -5,6 +5,7 @@ import 'package:softnux/blocs/auth/authentication_bloc.dart';
 import 'package:softnux/routes/softnux_router.dart';
 import 'package:softnux/ui/home/home.dart';
 import 'package:softnux/ui/login/login.dart';
+import 'package:softnux/ui/splash/splash_view.dart';
 
 void main() {
   runApp(
@@ -47,14 +48,7 @@ class SoftNuxApp extends StatelessWidget {
           } else if (state is AuthenticationUninitialized) {
             return Login();
           } else {
-            return Container(
-              color: Color(0xffE7014C),
-              child: Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: Colors.white,
-                ),
-              ),
-            );
+            return SplashView();
           }
         },
       ),
