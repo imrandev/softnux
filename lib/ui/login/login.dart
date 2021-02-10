@@ -10,8 +10,6 @@ import 'login_card.dart';
 
 class Login extends StatelessWidget {
 
-  final GlobalKey _scaffoldKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     final itemWidth = MediaQueryUtil().getItemWidth(context, 1);
@@ -20,7 +18,6 @@ class Login extends StatelessWidget {
     return BlocProvider(
       create: (context) => LoginFormBloc(),
       child: Scaffold(
-        key: _scaffoldKey,
         appBar: AppBar(
           elevation: 0,
           title: Container(

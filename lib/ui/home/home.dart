@@ -51,13 +51,16 @@ class HomeState extends State<Home> {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(12),
             child: Row(
               children: [
                 InkWell(
                   onTap: () => {
                     PrefsUtil().saveSession(false),
+                    /*Navigator.pushReplacementNamed(context, RoutePath.login),*/
+                    /*Navigator.of(context).pop(),*/
                     Navigator.popAndPushNamed(context, RoutePath.login),
+                    /*navigatorKey.currentState.popAndPushNamed(RoutePath.login),*/
                   },
                   customBorder: CircleBorder(),
                   child: Icon(

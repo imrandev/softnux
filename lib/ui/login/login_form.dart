@@ -129,6 +129,7 @@ class LoginFormUIState extends State<LoginForm> {
                     PrefsUtil().savePassword(_passwordController.text),
                     PrefsUtil().saveSession(true),
                     Navigator.popAndPushNamed(context, RoutePath.home),
+                    /*Navigator.popAndPushNamed(context, RoutePath.home),*/
                   }
               },
               elevation: 4,

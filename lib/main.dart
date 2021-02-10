@@ -30,10 +30,12 @@ class SoftNuxApp extends StatefulWidget {
 
 class SoftNuxAppState extends State<SoftNuxApp> {
 
+  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+
   @override
   void initState() {
-    super.initState();
     BlocProvider.of<AuthenticationBloc>(context).add(CheckAuthStatus());
+    super.initState();
   }
 
   @override
