@@ -125,10 +125,10 @@ class LoginFormUIState extends State<LoginForm> {
                 if (_formKey.currentState.validate())
                   {
                     BlocProvider.of<ApplicationBloc>(context).add(SubmitFormEvent(true)),
-                    PrefsUtil().saveUsername(_usernameController.text),
+                    /*PrefsUtil().saveUsername(_usernameController.text),
                     PrefsUtil().savePassword(_passwordController.text),
                     PrefsUtil().saveSession(true),
-                    Navigator.popAndPushNamed(context, RoutePath.home),
+                    Navigator.popAndPushNamed(context, RoutePath.home),*/
                     /*Navigator.popAndPushNamed(context, RoutePath.home),*/
                   }
               },

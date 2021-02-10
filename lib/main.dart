@@ -3,9 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/auth/authentication_bloc.dart';
 import 'package:softnux/routes/softnux_router.dart';
-import 'package:softnux/ui/home/home.dart';
-import 'package:softnux/ui/login/login.dart';
-import 'package:softnux/ui/splash/splash_view.dart';
+import 'package:softnux/ui/splash/splash_animation_view.dart';
 
 void main() {
   runApp(
@@ -30,8 +28,6 @@ class SoftNuxApp extends StatefulWidget {
 
 class SoftNuxAppState extends State<SoftNuxApp> {
 
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
-
   @override
   void initState() {
     BlocProvider.of<AuthenticationBloc>(context).add(CheckAuthStatus());
@@ -40,8 +36,6 @@ class SoftNuxAppState extends State<SoftNuxApp> {
 
   @override
   Widget build(BuildContext context) {
-
-    /*BlocProvider.of<AuthenticationBloc>(context).add(CheckAuthStatus());*/
 
     return MaterialApp(
       theme: ThemeData(
@@ -56,17 +50,7 @@ class SoftNuxAppState extends State<SoftNuxApp> {
       ),
       title: "Softnux",
       onGenerateRoute: SoftNuxRouter.generateRoute,
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        builder: (context, state) {
-          if (state is AuthenticationInitialized) {
-            return Home();
-          } else if (state is AuthenticationUninitialized) {
-            return Login();
-          } else {
-            return SplashView();
-          }
-        },
-      ),
+      home: SplashAnimationView(),
       debugShowCheckedModeBanner: false,
     );
   }

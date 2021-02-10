@@ -12,7 +12,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   @override
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
-    yield AuthenticationLoading();
     try {
       if (event is CheckAuthStatus) {
         bool isLogged = false;
