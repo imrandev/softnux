@@ -23,10 +23,23 @@ void main() {
   );
 }
 
-class SoftNuxApp extends StatelessWidget {
+class SoftNuxApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => SoftNuxAppState();
+}
+
+class SoftNuxAppState extends State<SoftNuxApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<AuthenticationBloc>(context).add(CheckAuthStatus());
+  }
+
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<AuthenticationBloc>(context).add(CheckAuthStatus());
+
+    /*BlocProvider.of<AuthenticationBloc>(context).add(CheckAuthStatus());*/
 
     return MaterialApp(
       theme: ThemeData(

@@ -17,8 +17,9 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       if (event is CheckAuthStatus) {
         bool isLogged = false;
         await PrefsUtil().isLoggedIn().then((value) => {
-          isLogged = value
+          isLogged = value != null ? value : false,
         });
+
         if (isLogged) {
           yield AuthenticationInitialized();
         } else {
