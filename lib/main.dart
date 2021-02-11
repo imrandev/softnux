@@ -21,19 +21,7 @@ void main() {
   );
 }
 
-class SoftNuxApp extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => SoftNuxAppState();
-}
-
-class SoftNuxAppState extends State<SoftNuxApp> {
-
-  @override
-  void initState() {
-    BlocProvider.of<AuthenticationBloc>(context).add(CheckAuthStatus());
-    super.initState();
-  }
-
+class SoftNuxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
@@ -47,6 +35,7 @@ class SoftNuxAppState extends State<SoftNuxApp> {
             TargetPlatform.android: ZoomPageTransitionsBuilder(),
           },
         ),
+        fontFamily: 'Poppins',
       ),
       title: "Softnux",
       onGenerateRoute: SoftNuxRouter.generateRoute,

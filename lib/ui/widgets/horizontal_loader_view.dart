@@ -15,11 +15,18 @@ class HorizontalLoaderView extends StatelessWidget {
             alignment: Alignment.topLeft,
             height: itemHeight,
             color: Colors.white70,
-            child: LinearProgressIndicator(
-              backgroundColor: Colors.red,
-              valueColor: AlwaysStoppedAnimation<Color>(
-                Colors.amber,
-              ),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 24,
+                ),
+                LinearProgressIndicator(
+                  backgroundColor: Colors.red,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.amber,
+                  ),
+                ),
+              ],
             ),
           )
         : SizedBox();
