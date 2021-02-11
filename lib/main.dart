@@ -35,7 +35,6 @@ class SoftNuxApp extends StatelessWidget {
             TargetPlatform.android: ZoomPageTransitionsBuilder(),
           },
         ),
-        fontFamily: 'Poppins',
       ),
       title: "Softnux",
       onGenerateRoute: SoftNuxRouter.generateRoute,

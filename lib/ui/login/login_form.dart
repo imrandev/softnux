@@ -11,7 +11,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormUIState extends State<LoginForm> {
-
   final _formKey = GlobalKey<FormState>();
   final _usernameKey = GlobalKey<FormState>();
   final _passwordKey = GlobalKey<FormState>();
@@ -124,12 +123,14 @@ class LoginFormUIState extends State<LoginForm> {
               onPressed: () => {
                 if (_formKey.currentState.validate())
                   {
-                    BlocProvider.of<ApplicationBloc>(context).add(SubmitFormEvent(true)),
-                    /*PrefsUtil().saveUsername(_usernameController.text),
-                    PrefsUtil().savePassword(_passwordController.text),
-                    PrefsUtil().saveSession(true),
-                    Navigator.popAndPushNamed(context, RoutePath.home),*/
-                    /*Navigator.popAndPushNamed(context, RoutePath.home),*/
+                    Future.delayed(const Duration(milliseconds: 500), () {
+                      BlocProvider.of<ApplicationBloc>(context)
+                          .add(SubmitFormEvent(true));
+                      PrefsUtil().saveUsername(_usernameController.text);
+                      PrefsUtil().savePassword(_passwordController.text);
+                      PrefsUtil().saveSession(true);
+                      Navigator.popAndPushNamed(context, RoutePath.home);
+                    }),
                   }
               },
               elevation: 4,

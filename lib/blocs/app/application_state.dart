@@ -23,11 +23,11 @@ class HomeBottomNavState extends ApplicationState {
 
 }
 
-class HotJobsBottomNavState extends ApplicationState {
+class MyDeviceBottomNavState extends ApplicationState {
 
 }
 
-class ShortListedBottomNavState extends ApplicationState {
+class MyLocationBottomNavState extends ApplicationState {
 
 }
 

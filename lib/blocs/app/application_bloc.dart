@@ -26,10 +26,10 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
       } else if (event is BottomNavEvent) {
         switch(event.index) {
           case 1 :
-            yield HotJobsBottomNavState();
+            yield MyDeviceBottomNavState();
             break;
           case 2 :
-            yield ShortListedBottomNavState();
+            yield MyLocationBottomNavState();
             break;
           case 3 :
             yield MoreBottomNavState();

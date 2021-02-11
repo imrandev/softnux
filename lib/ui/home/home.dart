@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/ui/fragments/home_fragment.dart';
-import 'package:softnux/ui/fragments/hot_jobs_fragment.dart';
+import 'package:softnux/ui/fragments/my_device_fragment.dart';
 import 'package:softnux/ui/fragments/more_fragment.dart';
-import 'package:softnux/ui/fragments/short_listed_fragment.dart';
+import 'package:softnux/ui/fragments/my_loaction_fragment.dart';
 import 'package:softnux/utills/prefs_util.dart';
 import 'package:softnux/utills/routepath.dart';
 
@@ -36,7 +36,6 @@ class HomeState extends State<Home> {
         ),
         title: BlocBuilder<ApplicationBloc, ApplicationState>(
           builder: (context, state) {
-
             if (state is CurrentUserState) {
               this._username = state.username;
               return Text(
@@ -57,10 +56,7 @@ class HomeState extends State<Home> {
                 InkWell(
                   onTap: () => {
                     PrefsUtil().saveSession(false),
-                    /*Navigator.pushReplacementNamed(context, RoutePath.login),*/
-                    /*Navigator.of(context).pop(),*/
                     Navigator.popAndPushNamed(context, RoutePath.login),
-                    /*navigatorKey.currentState.popAndPushNamed(RoutePath.login),*/
                   },
                   customBorder: CircleBorder(),
                   child: Icon(
@@ -91,12 +87,12 @@ class HomeState extends State<Home> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.whatshot),
-            label: "Hot Jobs",
+            icon: new Icon(Icons.devices),
+            label: "MyDevice",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
-            label: "Storelisted",
+            icon: Icon(Icons.my_location),
+            label: "MyLocation",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.more_horiz),
@@ -106,10 +102,10 @@ class HomeState extends State<Home> {
       ),
       body: BlocBuilder<ApplicationBloc, ApplicationState> (
         builder: (context, state) {
-          if (state is HotJobsBottomNavState) {
-            return HotJobsFragment();
-          } else if (state is ShortListedBottomNavState) {
-            return ShortListedFragment();
+          if (state is MyDeviceBottomNavState) {
+            return MyDeviceFragment();
+          } else if (state is MyLocationBottomNavState) {
+            return MyLocationFragment();
           } else if (state is MoreBottomNavState) {
             return MoreFragment();
           } else {
