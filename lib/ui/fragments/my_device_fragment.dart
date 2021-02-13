@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softnux/blocs/battery/battery_bloc.dart';
+import 'package:softnux/blocs/device/device_bloc.dart';
 import 'package:softnux/ui/fragments/battery_info_fragment.dart';
 import 'package:softnux/ui/fragments/device_info_fragment.dart';
 
@@ -67,11 +70,21 @@ class MyDeviceFragment extends StatelessWidget {
             ),
             Expanded(
               flex: 1,
-              child: TabBarView(
-                children: [
-                  BatteryInfoFragment(),
-                  DeviceInfoFragment(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => BatteryBloc(),
+                  ),
+                  BlocProvider(
+                    create: (context) => DeviceBloc(),
+                  ),
                 ],
+                child: TabBarView(
+                  children: [
+                    BatteryInfoFragment(),
+                    DeviceInfoFragment(),
+                  ],
+                ),
               ),
             ),
           ],

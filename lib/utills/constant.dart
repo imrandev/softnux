@@ -8,4 +8,6 @@ class Constant {
   static const String usernamePrefs = "username-prefs";
   static const String passwordPrefs = "password-prefs";
   static const String isLoggedPrefs = "is-logged-prefs";
+
+  static const int MEGABYTE = 1024 * 1024;
 }
