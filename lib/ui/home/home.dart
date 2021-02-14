@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softnux/blocs/app/application_bloc.dart';
+import 'package:softnux/blocs/location/location_bloc.dart';
 import 'package:softnux/ui/fragments/home_fragment.dart';
 import 'package:softnux/ui/fragments/my_device_fragment.dart';
 import 'package:softnux/ui/fragments/more_fragment.dart';
@@ -105,7 +106,10 @@ class HomeState extends State<Home> {
           if (state is MyDeviceBottomNavState) {
             return MyDeviceFragment();
           } else if (state is MyLocationBottomNavState) {
-            return MyLocationFragment();
+            return BlocProvider(
+              create: (context) => LocationBloc(),
+              child: MyLocationFragment(),
+            );
           } else if (state is MoreBottomNavState) {
             return MoreFragment();
           } else {

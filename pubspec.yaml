@@ -40,6 +40,7 @@ dependencies:
   disk_space: ^0.0.3
   percent_indicator: "^2.1.7+2"
   geolocator: ^6.2.0
+  location_permissions: ^3.0.0
 
 dev_dependencies:
   flutter_test:
