@@ -41,6 +41,8 @@ dependencies:
   percent_indicator: "^2.1.7+2"
   geolocator: ^6.2.0
   location_permissions: ^3.0.0
+  google_maps_flutter: ^1.2.0
+  geocoding: ^1.0.5
 
 dev_dependencies:
   flutter_test:

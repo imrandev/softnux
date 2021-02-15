@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:location_permissions/location_permissions.dart';
 import 'package:meta/meta.dart';
 
 part 'location_event.dart';
@@ -11,34 +10,30 @@ part 'location_state.dart';
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
   LocationBloc() : super(InitialLocationState());
 
+  StreamSubscription<Position> _positionStreamSubscription;
+
   @override
   Stream<LocationState> mapEventToState(LocationEvent event) async* {
-    yield InitialLocationState();
     try {
-      if (event is CheckPermissionEvent){
 
-        _determinePosition().then(
-              (value) async* {
-            yield LocationSuccess(
-                lat: value.latitude, lng: value.longitude, message: "Successfully Location Received");
-          },
-          onError: (e) async* {
-            yield LocationError(message: e.toString());
-          },
-        ).whenComplete(() => {
-          Geolocator.getPositionStream(
+      if (event is InitialLocationEvent){
+        _determinePosition().then((value) => {
+          add(LocationReceivedEvent(lat: value.latitude, lng: value.longitude)),
+        }, onError: (e) {
+          add(LocationErrorEvent(message: e.toString()));
+        }).whenComplete(() => {
+          _positionStreamSubscription = Geolocator.getPositionStream(
             intervalDuration: Duration(
               seconds: 5,
             ),
             desiredAccuracy: LocationAccuracy.high,
-          ).listen((Position position) async* {
+          ).listen((Position position) {
             print(position == null
                 ? 'Unknown'
                 : position.latitude.toString() +
                 ', ' +
                 position.longitude.toString());
-            yield LocationSuccess(
-                lat: position.latitude, lng: position.longitude, message: "Successfully Location Received");
+            add(LocationReceivedEvent(lat: position.latitude, lng: position.longitude));
           }),
         });
       } else if (event is LocationStatusEvent) {
@@ -47,6 +42,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         } else {
           yield LocationDisabled();
         }
+      } else if (event is LocationReceivedEvent){
+        yield LocationSuccess(
+            lat: event.lat, lng: event.lng, message: "Location Received", streamSubscription: _positionStreamSubscription);
+      } else if (event is LocationErrorEvent){
+        yield LocationError(message: event.message);
       }
     } on Error {
       yield LocationError(message: "Something went wrong!");

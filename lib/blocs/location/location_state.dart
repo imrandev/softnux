@@ -13,10 +13,11 @@ class LocationSuccess extends LocationState {
   final double lat;
   final double lng;
   final String message;
+  final StreamSubscription<Position> streamSubscription;
 
-  LocationSuccess({this.lat, this.lng, @required this.message});
+  LocationSuccess({this.lat, this.lng, @required this.message, this.streamSubscription});
 
-  List<Object> get props => [lat, lng, message];
+  List<Object> get props => [lat, lng, message, streamSubscription];
 }
 
 class LocationError extends LocationState {

@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bdjobs.softnux">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -13,6 +14,10 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="softnux"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBtV8yXZPYToptihyjRQrD-Tz55-1gaJ_Q"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
