@@ -14,12 +14,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     try {
       if (event is CheckAuthStatus) {
-        bool isLogged = false;
-        await PrefsUtil().isLoggedIn().then((value) => {
-          isLogged = value != null ? value : false,
-        });
-
-        if (isLogged) {
+        if (await PrefsUtil().isLoggedIn()) {
           yield AuthenticationInitialized();
         } else {
           yield AuthenticationUninitialized();

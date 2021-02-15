@@ -56,6 +56,7 @@ class DeviceInfoState extends State<DeviceInfoFragment> {
                     ),
                     LinearPercentIndicator(
                       animation: true,
+                      animationDuration: 1000,
                       percent: state
                           .deviceMemory.getFreeVirtualMemoryInPercentage /
                           100,
@@ -77,6 +78,7 @@ class DeviceInfoState extends State<DeviceInfoFragment> {
                     ),
                     LinearPercentIndicator(
                       animation: true,
+                      animationDuration: 1000,
                       percent: state.deviceMemory
                           .getFreePhysicalMemoryInPercentage /
                           100,

@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:meta/meta.dart';
 import 'package:softnux/utills/prefs_util.dart';
 
@@ -21,6 +23,7 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
           username = value
         });
         if (username.isNotEmpty) {
+          FirebaseCrashlytics.instance.setUserIdentifier(username);
           yield CurrentUserState(username);
         }
       } else if (event is BottomNavEvent) {

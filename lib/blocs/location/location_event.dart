@@ -5,9 +5,7 @@ abstract class LocationEvent {
   const LocationEvent();
 }
 
-class InitialLocationEvent extends LocationEvent {
-
-}
+class InitialLocationEvent extends LocationEvent {}
 
 class LocationReceivedEvent extends LocationEvent {
   final double lat;

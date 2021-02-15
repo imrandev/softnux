@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
@@ -33,8 +34,7 @@ class _MyLocationState extends State<MyLocationFragment> {
       if (_isLocationEnabled) {
         BlocProvider.of<LocationBloc>(context).add(InitialLocationEvent());
       }
-      BlocProvider.of<LocationBloc>(context)
-          .add(LocationStatusEvent(_isLocationEnabled));
+      BlocProvider.of<LocationBloc>(context).add(LocationStatusEvent(_isLocationEnabled));
     });
   }
 
@@ -42,7 +42,6 @@ class _MyLocationState extends State<MyLocationFragment> {
   Widget build(BuildContext context) {
     return BlocBuilder<LocationBloc, LocationState>(
       builder: (context, state) {
-
         if (state is LocationSuccess) {
           _updateCamera(state.lat, state.lng);
           this._positionStreamSubscription = state.streamSubscription;
@@ -51,7 +50,6 @@ class _MyLocationState extends State<MyLocationFragment> {
         } else if (state is LocationDisabled) {
           _isLocationEnabled = false;
         }
-
         return Container(
           height: double.infinity,
           child: Stack(
@@ -93,6 +91,8 @@ class _MyLocationState extends State<MyLocationFragment> {
 
   Future<void> _updateCamera(double lat, double lng) async {
     final GoogleMapController controller = await _controller.future;
+
+    // change the camera position with the new update location
     controller.animateCamera(
         CameraUpdate.newCameraPosition(
             CameraPosition(
@@ -103,6 +103,7 @@ class _MyLocationState extends State<MyLocationFragment> {
             )
         )
     );
+    // adding updated location markers onto the google map
     markers.add(
         Marker(
           markerId: MarkerId('value'),

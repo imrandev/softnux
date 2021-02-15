@@ -10,11 +10,10 @@ part 'location_state.dart';
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
   LocationBloc() : super(InitialLocationState());
 
-  StreamSubscription<Position> _positionStreamSubscription;
-
   @override
   Stream<LocationState> mapEventToState(LocationEvent event) async* {
     try {
+      StreamSubscription<Position> _positionStreamSubscription;
 
       if (event is InitialLocationEvent){
         _determinePosition().then((value) => {

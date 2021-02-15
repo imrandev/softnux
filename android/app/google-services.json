@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "128073365206",
+    "project_id": "softnux",
+    "storage_bucket": "softnux.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128073365206:android:43f5313789d966a4497b77",
+        "android_client_info": {
+          "package_name": "com.bdjobs.softnux"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128073365206-81rp5u2irsl1kiuc49j12kdtjiomor7e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bdjobs.softnux",
+            "certificate_hash": "632f7692b8aa2cef3cc09330bdaeea46d4c0dbc1"
+          }
+        },
+        {
+          "client_id": "128073365206-kcmcunapnmvpukn8d28cjb8e27dgfhvs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtV8yXZPYToptihyjRQrD-Tz55-1gaJ_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128073365206-kcmcunapnmvpukn8d28cjb8e27dgfhvs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,11 +11,8 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
   LoginFormBloc() : super(LoginFormInitial(false, ""));
 
   @override
-  Stream<LoginFormState> mapEventToState(
-    LoginFormEvent event,
-  ) async* {
+  Stream<LoginFormState> mapEventToState(LoginFormEvent event,) async* {
     yield LoginFormInitial(false, "");
-
     try {
       if (event is PasswordVisibilityEvent) {
         print("Password show is ${event.visibility}");

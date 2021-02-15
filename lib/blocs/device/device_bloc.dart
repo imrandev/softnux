@@ -22,11 +22,6 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
     yield InitialDeviceState();
     try {
       if (event is CheckDeviceEvent) {
-        Map<String, dynamic> deviceData;
-        await initPlatformState().then((value) => {
-          deviceData = value
-        });
-        var processors = SysInfo.processors;
 
         var deviceMemory = new DeviceMemory(
           SysInfo.getTotalPhysicalMemory(),
@@ -36,7 +31,7 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
           SysInfo.getVirtualMemorySize(),
         );
 
-        yield CheckDeviceState(deviceData, processors, deviceMemory);
+        yield CheckDeviceState(await initPlatformState(), SysInfo.processors, deviceMemory);
       }
     } on Error {
 

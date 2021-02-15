@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:battery/battery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:softnux/blocs/analytics/analytics_bloc.dart';
 import 'package:softnux/blocs/battery/battery_bloc.dart';
 
 class BatteryInfoFragment extends StatefulWidget {
