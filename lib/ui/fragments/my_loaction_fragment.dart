@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geocoding/geocoding.dart';
@@ -15,20 +14,17 @@ class MyLocationFragment extends StatefulWidget {
 }
 
 class _MyLocationState extends State<MyLocationFragment> {
+
   StreamSubscription<Position> _positionStreamSubscription;
   Completer<GoogleMapController> _controller = Completer();
   bool _isLocationEnabled = false;
   Set<Marker> markers = Set();
 
-  static final CameraPosition _bdJobsLocation = CameraPosition(
-    target: LatLng(23.791073599999997, 90.41655519999999),
-    zoom: 14.4746,
-  );
-
   @override
   void initState() {
     BlocProvider.of<LocationBloc>(context).add(InitialLocationEvent());
     super.initState();
+
     LocationPermissions().serviceStatus.listen((event) {
       bool _isLocationEnabled = event == ServiceStatus.enabled ? true : false;
       if (_isLocationEnabled) {
@@ -57,7 +53,10 @@ class _MyLocationState extends State<MyLocationFragment> {
             children: [
               GoogleMap(
                 mapType: MapType.normal,
-                initialCameraPosition: _bdJobsLocation,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(23.791073599999997, 90.41655519999999),
+                  zoom: 14.4746,
+                ),
                 onMapCreated: (GoogleMapController controller) {
                   _controller.complete(controller);
                 },

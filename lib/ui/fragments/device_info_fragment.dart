@@ -8,10 +8,10 @@ import 'package:system_info/system_info.dart';
 
 class DeviceInfoFragment extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => DeviceInfoState();
+  State<StatefulWidget> createState() => _DeviceInfoState();
 }
 
-class DeviceInfoState extends State<DeviceInfoFragment> {
+class _DeviceInfoState extends State<DeviceInfoFragment> {
   static const int MEGABYTE = 1024 * 1024;
 
   @override

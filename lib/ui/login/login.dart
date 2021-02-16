@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softnux/blocs/app/application_bloc.dart';
+import 'package:softnux/blocs/auth/authentication_bloc.dart';
 import 'package:softnux/blocs/form/login_form_bloc.dart';
 import 'package:softnux/ui/widgets/horizontal_loader_view.dart';
 import 'package:softnux/utills/media_query_util.dart';
@@ -16,7 +17,7 @@ class Login extends StatelessWidget {
     BlocProvider.of<ApplicationBloc>(context).add(SubmitFormEvent(false));
 
     return BlocProvider(
-      create: (context) => LoginFormBloc(),
+      create: (context) => AuthenticationBloc(),
       child: Scaffold(
         body: Container(
           color: Color(0xffE7014C),
@@ -75,7 +76,7 @@ class Login extends StatelessWidget {
                               ApplicationState>(
                             builder: (context, state) {
                               bool visibility = false;
-                              if (state is SubmitFormState) {
+                              if (state is LoaderFormState) {
                                 visibility = state.visibility;
                               }
                               return HorizontalLoaderView(visibility);

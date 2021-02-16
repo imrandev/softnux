@@ -30,18 +30,6 @@ class LoginCard extends StatelessWidget {
                     height: 30,
                   ),
                   Text(
-                    "Recover Password",
-                    style: TextStyle(
-                      color: Color(0xff051E32),
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
                     "Not Register Yet?",
                     style: TextStyle(
                       color: Color(0xff051E32),

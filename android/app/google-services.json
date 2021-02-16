@@ -37,6 +37,13 @@
             {
               "client_id": "128073365206-kcmcunapnmvpukn8d28cjb8e27dgfhvs.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "128073365206-tjc6kau5613d9k9vp6762dupv3odmr31.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bdjobs.softnux"
+              }
             }
           ]
         }

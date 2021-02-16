@@ -5,9 +5,31 @@ import 'package:softnux/blocs/device/device_bloc.dart';
 import 'package:softnux/ui/fragments/battery_info_fragment.dart';
 import 'package:softnux/ui/fragments/device_info_fragment.dart';
 
-class MyDeviceFragment extends StatelessWidget {
+class MyDeviceFragment extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyDeviceState();
+}
+
+class _MyDeviceState extends State<MyDeviceFragment> {
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  _changedTabbedListener(){
+    int index = DefaultTabController.of(context).index;
+    if (index == 0) {
+      print("Battery Tab");
+    } else if (index == 1) {
+      print("Device Tab");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return DefaultTabController(
       length: 2,
       child: Container(

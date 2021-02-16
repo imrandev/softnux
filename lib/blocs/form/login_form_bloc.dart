@@ -15,7 +15,6 @@ class LoginFormBloc extends Bloc<LoginFormEvent, LoginFormState> {
     yield LoginFormInitial(false, "");
     try {
       if (event is PasswordVisibilityEvent) {
-        print("Password show is ${event.visibility}");
         yield PasswordVisibilityState(event.visibility, event.password);
       }
     } on Error {

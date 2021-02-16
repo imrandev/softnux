@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 class CircleImageView extends StatelessWidget {
   final GestureTapCallback onTap;
   final String imgUrl;
+  final double size;
 
   const CircleImageView({
     Key key,
     this.onTap,
     this.imgUrl,
+    this.size = 48.0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double size = 48.0;
 
     return Container(
       child: Column(

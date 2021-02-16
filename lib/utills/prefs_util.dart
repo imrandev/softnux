@@ -15,6 +15,11 @@ class PrefsUtil {
     prefs.setString(Constant.usernamePrefs, data);
   }
 
+  void saveUserEmail(String data) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constant.emailPrefs, data);
+  }
+
   void savePassword(String data) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constant.passwordPrefs, data);
@@ -30,6 +35,11 @@ class PrefsUtil {
     return prefs.getString(Constant.usernamePrefs);
   }
 
+  Future<String> getUserEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(Constant.emailPrefs);
+  }
+
   Future<String> getPassword() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(Constant.passwordPrefs);
@@ -37,7 +47,7 @@ class PrefsUtil {
 
   Future<bool> isLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(Constant.isLoggedPrefs);
+    return prefs.getBool(Constant.isLoggedPrefs) != null ? prefs.getBool(Constant.isLoggedPrefs) : false;
   }
 
   Future<SharedPreferences> getPrefs() async {

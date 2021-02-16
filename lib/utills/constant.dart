@@ -5,6 +5,7 @@ class Constant {
       "https://www.pngjoy.com/pngm/804/9537968_avatar-web-developer-coder-avatar-hd-png-download.png";
 
   // shared prefs keys
+  static const String emailPrefs = "email-prefs";
   static const String usernamePrefs = "username-prefs";
   static const String passwordPrefs = "password-prefs";
   static const String isLoggedPrefs = "is-logged-prefs";

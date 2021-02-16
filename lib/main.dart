@@ -6,11 +6,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:softnux/blocs/analytics/analytics_bloc.dart';
 import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/auth/authentication_bloc.dart';
 import 'package:softnux/routes/softnux_router.dart';
+import 'package:softnux/services/analytics_service.dart';
 import 'package:softnux/ui/splash/splash_animation_view.dart';
+
+final AnalyticsService analyticsService = AnalyticsService(
+  useGoogleAnalytics: true,
+);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,10 +28,7 @@ void main() async {
             create: (BuildContext context) => AuthenticationBloc(),
           ),
           BlocProvider(
-            create: (BuildContext context) => ApplicationBloc(),
-          ),
-          BlocProvider(
-            create: (BuildContext context) => AnalyticsBloc(),
+            create: (BuildContext context) => ApplicationBloc(analyticsService),
           ),
         ],
         child: SoftNuxApp(),
@@ -57,7 +58,7 @@ class SoftNuxApp extends StatelessWidget {
       title: "Softnux",
       onGenerateRoute: SoftNuxRouter.generateRoute,
       navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
+        analyticsService.getAnalyticsObserver(),
       ],
       home: SplashAnimationView(),
       debugShowCheckedModeBanner: false,

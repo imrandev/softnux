@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/location/location_bloc.dart';
 import 'package:softnux/ui/fragments/home_fragment.dart';
 import 'package:softnux/ui/fragments/my_device_fragment.dart';
 import 'package:softnux/ui/fragments/more_fragment.dart';
 import 'package:softnux/ui/fragments/my_loaction_fragment.dart';
+import 'package:softnux/ui/widgets/circle_image_view.dart';
+import 'package:softnux/utills/constant.dart';
 import 'package:softnux/utills/prefs_util.dart';
 import 'package:softnux/utills/routepath.dart';
 
@@ -30,10 +34,9 @@ class HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.account_circle,
-          color: Colors.white,
-          size: 30,
+        leading: CircleImageView(
+          imgUrl: FirebaseAuth.instance.currentUser.photoURL == null ? Constant.defaultProfileAvatar : FirebaseAuth.instance.currentUser.photoURL,
+          size: 36,
         ),
         title: BlocBuilder<ApplicationBloc, ApplicationState>(
           builder: (context, state) {
@@ -57,6 +60,9 @@ class HomeState extends State<Home> {
                 InkWell(
                   onTap: () => {
                     PrefsUtil().saveSession(false),
+                    if (FirebaseAuth.instance.currentUser != null) {
+                      FirebaseAuth.instance.signOut()
+                    },
                     Navigator.popAndPushNamed(context, RoutePath.login),
                   },
                   customBorder: CircleBorder(),

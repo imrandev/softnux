@@ -35,10 +35,10 @@ class MoreBottomNavState extends ApplicationState {
 
 }
 
-class SubmitFormState extends ApplicationState {
+class LoaderFormState extends ApplicationState {
   final bool visibility;
 
-  SubmitFormState(this.visibility);
+  LoaderFormState(this.visibility);
 
   List<Object> get props => [visibility];
 }
