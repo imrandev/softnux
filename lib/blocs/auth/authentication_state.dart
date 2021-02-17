@@ -34,3 +34,7 @@ class AuthenticationInitialized extends AuthenticationState {
 class AuthenticationUninitialized extends AuthenticationState {
 
 }
+
+class GoogleSignInInitialized extends AuthenticationState {
+
+}

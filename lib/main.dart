@@ -10,7 +10,8 @@ import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/auth/authentication_bloc.dart';
 import 'package:softnux/routes/softnux_router.dart';
 import 'package:softnux/services/analytics_service.dart';
-import 'package:softnux/ui/splash/splash_animation_view.dart';
+import 'package:softnux/ui/splash/splash_view.dart';
+import 'package:softnux/utills/routepath.dart';
 
 final AnalyticsService analyticsService = AnalyticsService(
   useGoogleAnalytics: true,
@@ -60,7 +61,7 @@ class SoftNuxApp extends StatelessWidget {
       navigatorObservers: [
         analyticsService.getAnalyticsObserver(),
       ],
-      home: SplashAnimationView(),
+      initialRoute: RoutePath.splash,
       debugShowCheckedModeBanner: false,
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/auth/authentication_bloc.dart';
-import 'package:softnux/blocs/form/login_form_bloc.dart';
 import 'package:softnux/utills/prefs_util.dart';
 import 'package:softnux/utills/routepath.dart';
 
@@ -12,7 +11,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormUIState extends State<LoginForm> {
-
   final _formKey = GlobalKey<FormState>();
   final _usernameKey = GlobalKey<FormState>();
   final _passwordKey = GlobalKey<FormState>();
@@ -61,7 +59,7 @@ class LoginFormUIState extends State<LoginForm> {
           SizedBox(
             height: 5,
           ),
-          BlocBuilder<LoginFormBloc, LoginFormState>(
+          BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (context, state) {
               bool visibility = false;
               if (state is PasswordVisibilityState) {
@@ -103,7 +101,7 @@ class LoginFormUIState extends State<LoginForm> {
                   ),
                   suffixIcon: InkWell(
                     onTap: () => {
-                      BlocProvider.of<LoginFormBloc>(context)
+                      BlocProvider.of<AuthenticationBloc>(context)
                           .add(PasswordVisibilityEvent(!visibility, ""))
                     },
                     customBorder: CircleBorder(),
@@ -127,7 +125,8 @@ class LoginFormUIState extends State<LoginForm> {
                 if (_formKey.currentState.validate())
                   {
                     Future.delayed(const Duration(milliseconds: 500), () {
-                      BlocProvider.of<ApplicationBloc>(context).add(SubmitFormEvent(true));
+                      BlocProvider.of<ApplicationBloc>(context)
+                          .add(SubmitFormEvent(true));
                       PrefsUtil().saveUsername(_usernameController.text);
                       PrefsUtil().savePassword(_passwordController.text);
                       PrefsUtil().saveSession(true);
@@ -157,40 +156,49 @@ class LoginFormUIState extends State<LoginForm> {
           SizedBox(
             width: 200,
             height: 40,
-            child: RaisedButton(
-              onPressed: () => {
-                BlocProvider.of<ApplicationBloc>(context).add(SubmitFormEvent(true)),
-                Future.delayed(const Duration(milliseconds: 500), () {
-                  BlocProvider.of<AuthenticationBloc>(context).add(GoogleSignInEvent());
-                }),
+            child: BlocListener<AuthenticationBloc, AuthenticationState>(
+              listener: (context, state) {
+                if (state is GoogleSignInInitialized) {
+                  Navigator.popAndPushNamed(context, RoutePath.home);
+                }
               },
-              elevation: 4,
-              color: Color(0xff4285f4),
-              padding: EdgeInsets.only(left: 8, right: 8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Image.asset(
-                    "assets/images/btn_google_light_normal.png",
-                    width: 18,
-                    height: 18,
-                  ),
-                  SizedBox(
-                    width: 24,
-                  ),
-                  Text(
-                    "Sign in with Google",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontFamily: 'Roboto Medium',
+              child: RaisedButton(
+                onPressed: () => {
+                  BlocProvider.of<ApplicationBloc>(context)
+                      .add(SubmitFormEvent(true)),
+                  Future.delayed(const Duration(milliseconds: 500), () {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .add(GoogleSignInEvent());
+                  }),
+                },
+                elevation: 4,
+                color: Color(0xff4285f4),
+                padding: EdgeInsets.only(left: 8, right: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Image.asset(
+                      "assets/images/btn_google_light_normal.png",
+                      width: 18,
+                      height: 18,
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      width: 24,
+                    ),
+                    Text(
+                      "Sign in with Google",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontFamily: 'Roboto Medium',
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

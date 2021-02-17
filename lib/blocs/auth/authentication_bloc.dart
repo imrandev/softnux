@@ -31,8 +31,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
           PrefsUtil().saveUserEmail(user.email);
           PrefsUtil().saveUsername(user.displayName);
           PrefsUtil().saveSession(true);
+          yield GoogleSignInInitialized();
         }
-        yield AuthenticationInitialized();
       }
     } on Error {
 

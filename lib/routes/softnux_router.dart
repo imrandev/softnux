@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:softnux/ui/home/home.dart';
+import 'package:softnux/ui/splash/splash_view.dart';
 import 'file:///E:/Flutter/softnux/lib/ui/login/login.dart';
 import 'package:softnux/utills/routepath.dart';
 
@@ -16,6 +17,12 @@ class SoftNuxRouter {
         {
           return MaterialPageRoute(
             builder: (_) => Home(),
+          );
+        }
+      case RoutePath.splash:
+        {
+          return MaterialPageRoute(
+            builder: (_) => SplashView(),
           );
         }
       default:
