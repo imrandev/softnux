@@ -1,41 +1,30 @@
 import 'package:softnux/utils/constant.dart';
 
 class DeviceMemory {
+  final int _totalPhysicalMemory;
+  final int _freePhysicalMemory;
+  final int _totalVirtualMemory;
+  final int _freeVirtualMemory;
+  final int _virtualMemorySize;
 
-  final int totalPhysicalMemory;
-  final int freePhysicalMemory;
-  final int totalVirtualMemory;
-  final int freeVirtualMemory;
-  final int virtualMemorySize;
+  DeviceMemory(
+      this._totalPhysicalMemory,
+      this._freePhysicalMemory,
+      this._totalVirtualMemory,
+      this._freeVirtualMemory,
+      this._virtualMemorySize);
 
-  DeviceMemory(this.totalPhysicalMemory, this.freePhysicalMemory,
-      this.totalVirtualMemory, this.freeVirtualMemory, this.virtualMemorySize);
+  int get totalPhysicalMemory => _totalPhysicalMemory ~/ Constant.MEGABYTE;
 
-  int get getTotalPhysicalMemory {
-    return totalPhysicalMemory ~/ Constant.MEGABYTE;
-  }
+  int get freePhysicalMemory => _freePhysicalMemory ~/ Constant.MEGABYTE;
 
-  int get getFreePhysicalMemory {
-    return freePhysicalMemory ~/ Constant.MEGABYTE;
-  }
+  double get freePhysicalMemoryAtPercentage => (freePhysicalMemory * 100) / totalPhysicalMemory;
 
-  double get getFreePhysicalMemoryInPercentage {
-    return (getFreePhysicalMemory * 100) / getTotalPhysicalMemory;
-  }
+  int get totalVirtualMemory => _totalVirtualMemory ~/ Constant.MEGABYTE;
 
-  int get getTotalVirtualMemory {
-    return totalVirtualMemory ~/ Constant.MEGABYTE;
-  }
+  int get freeVirtualMemory => _freeVirtualMemory ~/ Constant.MEGABYTE;
 
-  int get getFreeVirtualMemory {
-    return freeVirtualMemory ~/ Constant.MEGABYTE;
-  }
+  double get freeVirtualMemoryAtPercentage => (freeVirtualMemory * 100) / totalVirtualMemory;
 
-  double get getFreeVirtualMemoryInPercentage {
-    return (getFreeVirtualMemory * 100) / getTotalVirtualMemory;
-  }
-
-  int get getVirtualMemorySize {
-    return virtualMemorySize ~/ Constant.MEGABYTE;
-  }
+  int get virtualMemorySize => _virtualMemorySize ~/ Constant.MEGABYTE;
 }

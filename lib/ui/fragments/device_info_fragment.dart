@@ -35,7 +35,7 @@ class DeviceInfoFragment extends StatelessWidget {
                       height: 20,
                     ),
                     Text(
-                      "Free Virtual Memory : ${state.deviceMemory.getFreeVirtualMemory} MB",
+                      "Free Virtual Memory : ${state.deviceMemory.freeVirtualMemory} MB",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
@@ -48,7 +48,7 @@ class DeviceInfoFragment extends StatelessWidget {
                       animation: true,
                       animationDuration: 1000,
                       percent: state
-                          .deviceMemory.getFreeVirtualMemoryInPercentage /
+                          .deviceMemory.freeVirtualMemoryAtPercentage /
                           100,
                       lineHeight: 12,
                       progressColor: Colors.blue,
@@ -57,7 +57,7 @@ class DeviceInfoFragment extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      "Free Physical Memory : ${state.deviceMemory.getFreePhysicalMemory} MB",
+                      "Free Physical Memory : ${state.deviceMemory.freePhysicalMemory} MB",
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w300,
@@ -70,7 +70,7 @@ class DeviceInfoFragment extends StatelessWidget {
                       animation: true,
                       animationDuration: 1000,
                       percent: state.deviceMemory
-                          .getFreePhysicalMemoryInPercentage /
+                          .freePhysicalMemoryAtPercentage /
                           100,
                       lineHeight: 12,
                       progressColor: Colors.green,
@@ -86,15 +86,15 @@ class DeviceInfoFragment extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             CircleTextView(
-                              text: "${(state.deviceMemory.getTotalVirtualMemory / 1024).ceil()}",
+                              text: "${(state.deviceMemory.totalVirtualMemory / 1024).ceil()}",
                               subText: "GB",
                             ),
                             CircleTextView(
-                              text: "${(state.deviceMemory.getTotalPhysicalMemory ~/ 1024).ceil()}",
+                              text: "${(state.deviceMemory.totalPhysicalMemory ~/ 1024).ceil()}",
                               subText: "GB",
                             ),
                             CircleTextView(
-                              text: "${(state.deviceMemory.getVirtualMemorySize ~/ 1024).ceil()}",
+                              text: "${(state.deviceMemory.virtualMemorySize ~/ 1024).ceil()}",
                               subText: "GB",
                             ),
                           ],
