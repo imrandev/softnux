@@ -1,17 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/location/location_bloc.dart';
 import 'package:softnux/ui/fragments/home_fragment.dart';
 import 'package:softnux/ui/fragments/my_device_fragment.dart';
 import 'package:softnux/ui/fragments/more_fragment.dart';
-import 'package:softnux/ui/fragments/my_loaction_fragment.dart';
+import 'package:softnux/ui/fragments/my_location_fragment.dart';
 import 'package:softnux/ui/widgets/circle_image_view.dart';
-import 'package:softnux/utills/constant.dart';
-import 'package:softnux/utills/prefs_util.dart';
-import 'package:softnux/utills/routepath.dart';
+import 'package:softnux/utils/constant.dart';
+import 'package:softnux/utils/prefs_util.dart';
+import 'package:softnux/utils/routepath.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,11 +20,15 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
 
   int _currentIndex = 0;
-  String _username;
+  String _username = "";
 
   @override
   void initState() {
     BlocProvider.of<ApplicationBloc>(context).add(CurrentUserEvent());
+    Future.delayed(
+        const Duration(milliseconds: 500), () {
+      BlocProvider.of<ApplicationBloc>(context).add(BottomNavEvent(_currentIndex));
+    });
     super.initState();
   }
 
@@ -35,21 +38,19 @@ class HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         leading: CircleImageView(
-          imgUrl: FirebaseAuth.instance.currentUser.photoURL == null ? Constant.defaultProfileAvatar : FirebaseAuth.instance.currentUser.photoURL,
+          imgUrl: FirebaseAuth.instance.currentUser == null
+              ? Constant.defaultProfileAvatar
+              : FirebaseAuth.instance.currentUser.photoURL,
           size: 36,
         ),
         title: BlocBuilder<ApplicationBloc, ApplicationState>(
           builder: (context, state) {
             if (state is CurrentUserState) {
               this._username = state.username;
-              return Text(
-                "Welcome $_username",
-              );
-            } else {
-              return Text(
-                _username != null ? "Welcome $_username" : "Welcome Home",
-              );
             }
+            return Text(
+              _username.isNotEmpty ? "Welcome $_username" : "Welcome Home",
+            );
           },
         ),
         actions: [
@@ -118,8 +119,12 @@ class HomeState extends State<Home> {
             );
           } else if (state is MoreBottomNavState) {
             return MoreFragment();
-          } else {
+          } else if (state is HomeBottomNavState) {
             return HomeFragment();
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),

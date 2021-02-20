@@ -4,26 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:softnux/blocs/device/device_bloc.dart';
 import 'package:softnux/ui/widgets/circle_text_view.dart';
-import 'package:system_info/system_info.dart';
 
-class DeviceInfoFragment extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _DeviceInfoState();
-}
-
-class _DeviceInfoState extends State<DeviceInfoFragment> {
-  static const int MEGABYTE = 1024 * 1024;
-
-  @override
-  void initState() {
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      BlocProvider.of<DeviceBloc>(context).add(CheckDeviceEvent());
-    });
-    super.initState();
-  }
+class DeviceInfoFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      BlocProvider.of<DeviceBloc>(context).add(CheckDeviceEvent());
+    });
+
     return Container(
       height: double.infinity,
       child: BlocBuilder<DeviceBloc, DeviceState>(

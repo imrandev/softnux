@@ -22,7 +22,6 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
     yield InitialDeviceState();
     try {
       if (event is CheckDeviceEvent) {
-
         var deviceMemory = new DeviceMemory(
           SysInfo.getTotalPhysicalMemory(),
           SysInfo.getFreePhysicalMemory(),
@@ -30,7 +29,6 @@ class DeviceBloc extends Bloc<DeviceEvent, DeviceState> {
           SysInfo.getFreeVirtualMemory(),
           SysInfo.getVirtualMemorySize(),
         );
-
         yield CheckDeviceState(await initPlatformState(), SysInfo.processors, deviceMemory);
       }
     } on Error {

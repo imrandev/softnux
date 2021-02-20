@@ -1,4 +1,4 @@
-import 'package:softnux/utills/constant.dart';
+import 'package:softnux/utils/constant.dart';
 
 class DeviceMemory {
 

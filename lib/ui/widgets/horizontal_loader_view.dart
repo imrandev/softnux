@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:softnux/utills/media_query_util.dart';
+import 'package:softnux/utils/media_query_util.dart';
 
 class HorizontalLoaderView extends StatelessWidget {
   final bool visibility;

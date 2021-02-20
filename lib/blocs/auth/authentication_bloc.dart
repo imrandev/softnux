@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
-import 'package:softnux/utills/prefs_util.dart';
+import 'package:softnux/utils/prefs_util.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -16,9 +16,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   @override
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     try {
-      if (event is PasswordVisibilityEvent) {
-        yield PasswordVisibilityState(event.visibility, event.password);
-      } else if (event is CheckAuthStatus) {
+      if (event is CheckAuthStatus) {
         if (await PrefsUtil().isLoggedIn()) {
           yield AuthenticationInitialized();
         } else {

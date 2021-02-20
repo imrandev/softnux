@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:meta/meta.dart';
 import 'package:softnux/services/analytics_service.dart';
-import 'package:softnux/utills/prefs_util.dart';
+import 'package:softnux/utils/prefs_util.dart';
 
 part 'application_event.dart';
 part 'application_state.dart';
@@ -21,11 +22,12 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
     try {
       if (event is CurrentUserEvent) {
         String username = await PrefsUtil().getUsername();
-        if (username.isNotEmpty) {
-          FirebaseCrashlytics.instance.setUserIdentifier(username);
-          _analyticsService.setUserProperties(userId: username);
-          yield CurrentUserState(username);
+        if (username == null || username.isEmpty) {
+          username = FirebaseAuth.instance.currentUser.displayName;
         }
+        FirebaseCrashlytics.instance.setUserIdentifier(username);
+        _analyticsService.setUserProperties(userId: username);
+        yield CurrentUserState(username);
       } else if (event is BottomNavEvent) {
         switch(event.index) {
           case 1 :
@@ -61,5 +63,10 @@ class ApplicationBloc extends Bloc<ApplicationEvent, ApplicationState> {
     return <String, dynamic>{
       'index': index,
     };
+  }
+
+  @override
+  Future<void> close() {
+    return super.close();
   }
 }

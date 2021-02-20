@@ -14,15 +14,6 @@ class InitialAuthenticationState extends AuthenticationState {
   List<Object> get props => [visibility, password];
 }
 
-class PasswordVisibilityState extends AuthenticationState {
-  final bool visibility;
-  final String password;
-
-  const PasswordVisibilityState(this.visibility, this.password);
-
-  List<Object> get props => [visibility, password];
-}
-
 class AuthenticationLoading extends AuthenticationState {
 
 }

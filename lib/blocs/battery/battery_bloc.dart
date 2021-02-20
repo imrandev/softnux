@@ -14,7 +14,7 @@ class BatteryBloc extends Bloc<BatteryEvent, BatteryChangeState> {
   Stream<BatteryChangeState> mapEventToState(BatteryEvent event) async* {
     try {
       if (event is BatteryChangeEvent) {
-        yield BatteryLevelChangeState( await Battery().batteryLevel, event.batteryState);
+        yield BatteryLevelChangeState(await Battery().batteryLevel, event.batteryState);
       }
     } on Error {
 

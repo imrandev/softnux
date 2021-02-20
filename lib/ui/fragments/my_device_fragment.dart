@@ -12,7 +12,6 @@ class MyDeviceFragment extends StatefulWidget {
 
 class _MyDeviceState extends State<MyDeviceFragment> {
 
-
   @override
   void initState() {
     super.initState();

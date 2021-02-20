@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:softnux/ui/widgets/circle_image_view.dart';
-import 'package:softnux/utills/constant.dart';
-import 'package:softnux/utills/media_query_util.dart';
+import 'package:softnux/utils/constant.dart';
+import 'package:softnux/utils/media_query_util.dart';
 
 class HomeFragment extends StatelessWidget {
 

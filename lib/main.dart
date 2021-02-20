@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -10,16 +8,17 @@ import 'package:softnux/blocs/app/application_bloc.dart';
 import 'package:softnux/blocs/auth/authentication_bloc.dart';
 import 'package:softnux/routes/softnux_router.dart';
 import 'package:softnux/services/analytics_service.dart';
-import 'package:softnux/ui/splash/splash_view.dart';
-import 'package:softnux/utills/routepath.dart';
+import 'package:softnux/utils/routepath.dart';
 
 final AnalyticsService analyticsService = AnalyticsService(
   useGoogleAnalytics: true,
 );
 
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
 
   runZonedGuarded(() {
     runApp(
@@ -57,10 +56,10 @@ class SoftNuxApp extends StatelessWidget {
         ),
       ),
       title: "Softnux",
-      onGenerateRoute: SoftNuxRouter.generateRoute,
       navigatorObservers: [
         analyticsService.getAnalyticsObserver(),
       ],
+      onGenerateRoute: SoftNuxRouter.generateRoute,
       initialRoute: RoutePath.splash,
       debugShowCheckedModeBanner: false,
     );

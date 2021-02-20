@@ -43,10 +43,8 @@ class SplashViewState extends State<SplashView> {
         builder: (context, state) {
           if (state is AuthenticationInitialized) {
             return Home();
-          } else if (state is AuthenticationUninitialized) {
-            return Login();
           } else {
-            return Container();
+            return Login();
           }
         },
       ),

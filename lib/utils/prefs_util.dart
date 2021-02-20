@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:softnux/utills/constant.dart';
+import 'package:softnux/utils/constant.dart';
 
 class PrefsUtil {
   static final PrefsUtil _instance = PrefsUtil._internal();
