@@ -12,7 +12,7 @@ class DeviceMemory {
       this._freePhysicalMemory,
       this._totalVirtualMemory,
       this._freeVirtualMemory,
-      this._virtualMemorySize);
+      this._virtualMemorySize,);
 
   int get totalPhysicalMemory => _totalPhysicalMemory ~/ Constant.MEGABYTE;
 

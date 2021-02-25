@@ -43,7 +43,6 @@ class SoftNuxApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Color(0xffE7014C),

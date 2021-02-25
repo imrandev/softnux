@@ -44,10 +44,11 @@ class PasswordChangeEvent extends AuthFormEvent {
 class ConfirmPasswordChangeEvent extends AuthFormEvent {
   final String password;
   final String confirmPassword;
+  final bool hasFocus;
 
-  ConfirmPasswordChangeEvent(this.password, this.confirmPassword);
+  ConfirmPasswordChangeEvent(this.password, this.confirmPassword, this.hasFocus);
 
-  List<Object> get props => [password, confirmPassword];
+  List<Object> get props => [password, confirmPassword, hasFocus];
 }
 
 class NameChangeEvent extends AuthFormEvent {

@@ -30,11 +30,9 @@ class _RegisterFormState extends State<RegisterForm> {
                 _formData.nameInputField.validate = state.validate;
                 _formData.nameInputField.message = state.errorMessage;
               }
-
               return TextFormField(
                 onChanged: (value) {
-                  BlocProvider.of<AuthFormBloc>(context)
-                      .add(NameChangeEvent(value));
+                  BlocProvider.of<AuthFormBloc>(context).add(NameChangeEvent(value));
                 },
                 maxLines: 1,
                 controller: _nameController,
@@ -57,6 +55,9 @@ class _RegisterFormState extends State<RegisterForm> {
                       : _formData.nameInputField.errorMessage,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   labelText: "First name",
+                  labelStyle: TextStyle(
+                    color: Colors.blueGrey,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0),
                     borderSide:
@@ -84,6 +85,9 @@ class _RegisterFormState extends State<RegisterForm> {
               ),
               contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
               labelText: "Last name (Optional)",
+              labelStyle: TextStyle(
+                color: Colors.blueGrey,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(32.0),
                 borderSide:
@@ -130,6 +134,9 @@ class _RegisterFormState extends State<RegisterForm> {
                       : _formData.emailInputField.errorMessage,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   labelText: "Email",
+                  labelStyle: TextStyle(
+                    color: Colors.blueGrey,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0),
                     borderSide:
@@ -180,6 +187,9 @@ class _RegisterFormState extends State<RegisterForm> {
                       : _formData.phoneInputField.errorMessage,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   labelText: "Phone",
+                  labelStyle: TextStyle(
+                    color: Colors.blueGrey,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0),
                     borderSide:
@@ -213,7 +223,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   Future.delayed(const Duration(milliseconds: 1000), () {
                     BlocProvider.of<AuthFormBloc>(context).add(
                         ConfirmPasswordChangeEvent(
-                            value, _confirmPasswordController.text));
+                            value, _confirmPasswordController.text, false));
                   });
                 },
                 controller: _passwordController,
@@ -228,6 +238,9 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   labelText: "Password",
+                  labelStyle: TextStyle(
+                    color: Colors.blueGrey,
+                  ),
                   errorText: _formData.passwordInputField.validate
                       ? null
                       : _formData.passwordInputField.errorMessage,
@@ -281,7 +294,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 onChanged: (value) {
                   BlocProvider.of<AuthFormBloc>(context).add(
                       ConfirmPasswordChangeEvent(
-                          _passwordController.text, value));
+                          _passwordController.text, value, true));
                 },
                 maxLines: 1,
                 controller: _confirmPasswordController,
@@ -311,6 +324,9 @@ class _RegisterFormState extends State<RegisterForm> {
                       : _formData.confirmInputField.errorMessage,
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   labelText: "Confirm Password",
+                  labelStyle: TextStyle(
+                    color: Colors.blueGrey,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0),
                     borderSide:

@@ -29,10 +29,17 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
       );
     } else if (event is PasswordChangeEvent) {
       bool validate = PasswordValidator().validate(event.password);
-      yield PasswordValidatorState(
-        validate: validate,
-        errorMessage: !validate ? Constant.passwordErrorMessage : null,
-      );
+      if (event.password.isEmpty) {
+        yield PasswordValidatorState(
+          validate: validate,
+          errorMessage: Constant.passwordEmptyMessage,
+        );
+      } else {
+        yield PasswordValidatorState(
+          validate: validate,
+          errorMessage: !validate ? Constant.passwordErrorMessage : null,
+        );
+      }
     } else if (event is EmailChangeEvent) {
       bool validate = EmailValidator().validate(event.email);
       yield EmailValidatorState(
@@ -46,20 +53,23 @@ class AuthFormBloc extends Bloc<AuthFormEvent, AuthFormState> {
         errorMessage: !validate ? Constant.phoneErrorMessage : null,
       );
     } else if (event is ConfirmPasswordChangeEvent) {
-      bool validate;
-      validate = event.password == event.confirmPassword;
-      if (event.password.isEmpty || event.confirmPassword.isEmpty){
-        validate = false;
-      }
-      if (event.password.length > 7) {
-        yield ConfirmPasswordValidatorState(
-          validate: validate,
-          errorMessage: !validate ? Constant.confirmPasswordErrorMessage : null,
-        );
-      } else {
+      bool validate = false;
+      if (event.confirmPassword.isEmpty) {
         yield ConfirmPasswordValidatorState(
           validate: false,
-          errorMessage: null,
+          errorMessage: event.password.isNotEmpty
+              && event.hasFocus ? "Confirm password cannot be empty" : null,
+        );
+      } else {
+        validate = event.password.isNotEmpty
+            && event.confirmPassword.isNotEmpty
+            && event.password == event.confirmPassword && event.password.length > 3;
+
+        yield ConfirmPasswordValidatorState(
+          validate: validate,
+          errorMessage: !validate
+              ? Constant.confirmPasswordErrorMessage
+              : null,
         );
       }
     }
